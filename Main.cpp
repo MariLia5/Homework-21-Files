@@ -23,16 +23,12 @@ bool isDigit(char c) {
 std::string Cessar(const std::string& str, int n) {
     std::string r; // Результирующая строка для зашифрованного текста
 
-    for (int i = 0; i < str.length(); ++i) { // Цикл по каждому символу строки
-        char c = str[i]; // Текущий символ
-
-        // Шифрование для букв
+    for (char c : str) {
+        // Применяем сдвиг только для букв
         if (isalpha(c)) {
-            char offset = islower(c) ? 'a' : 'A'; // Определяем смещение для нижнего и верхнего регистра
-            c = (c - offset + n) % 26 + offset; // Применяем сдвиг при шифровании
+            c = c + n; // Просто сдвигаем символ
         }
-
-        r += c; // Добавляем зашифрованный символ в результирующую строку
+        r += c; // Добавляем символ в результирующую строку
     }
 
     return r; // Возвращаем зашифрованную строку
@@ -41,7 +37,7 @@ std::string Cessar(const std::string& str, int n) {
 int main() {
     setlocale(LC_ALL, "RUS");
 
-     Задача 1
+    //  Задача 1
     std::string inputFileName1 = "file1.txt";  // Имя первого входного файла
     std::string inputFileName2 = "file2.txt";  // Имя второго входного файла
 
@@ -148,18 +144,17 @@ int main() {
     outputFile.close();
 
     // Задача 3
-    std::string Start = "input.txt"; // Имя входного файла
-    std::string Finish = "output.txt"; // Имя выходного файла
+    std::string Start = "Start.txt";  // Имя входного файла
+    std::string Finish = "Finish.txt"; // Имя выходного файла
     int key = 3; // Ключ шифрования
 
     std::ifstream inputFile(Start); // Открываем входной файл
-    std::ofstream outputFile(Finish); // Открываем выходной файл
-
     if (!inputFile.is_open()) {
         std::cerr << "Не удалось открыть файл для чтения: " << Start << std::endl;
         return 1; // Завершаем программу с кодом ошибки
     }
 
+    std::ofstream outputFile(Finish); // Открываем выходной файл
     if (!outputFile.is_open()) {
         std::cerr << "Не удалось открыть файл для записи: " << Finish << std::endl;
         return 1; // Завершаем программу с кодом ошибки
@@ -179,5 +174,5 @@ int main() {
     std::cout << "Шифрование завершено." << std::endl;
 
     return 0;
-    }
+}
 
